@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import uvIcon from '../icons/uv.svg?raw';
+---
+
+<BaseLayout
+  title="Home"
+  description="Benjamin Pham-Bachelart — Lead Dev NetDevOps at Bouygues Télécom, specializing in Python and Cisco NSO network automation."
+  minimalBrand
+>
+  <section class="landing">
+    <h1 class="name">benjamin phạm-bachelart<span class="cursor">_</span></h1>
+    <p class="role">Lead Dev - NetDevOps &middot; Network Automation &middot; Cisco NSO</p>
+    <p class="langs">
+      <span title="French — native">🇫🇷</span>
+      <span title="English — full professional proficiency">🇬🇧</span>
+      <span title="Vietnamese — conversational">🇻🇳</span>
+      <span title="Japanese — basic, lived there for a year">🇯🇵</span>
+    </p>
+    <p class="tagline">I automate as much as possible (<a class="tool-inline" href="https://docs.gitlab.com/ee/ci/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-gitlab" aria-hidden="true"></i> GitLab CI</a>, <a class="tool-inline" href="https://www.python.org/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-python" aria-hidden="true"></i> Python</a> + <a class="tool-inline" href="https://docs.astral.sh/uv/" target="_blank" rel="noopener noreferrer"><span class="tool-icon-svg" set:html={uvIcon} /> uv</a>, <a class="tool-inline" href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-bolt" aria-hidden="true"></i> FastAPI</a>) so my team can spend their time on high-value work.</p>
+    <div class="links">
+      <!--
+      <a href="https://github.com/Bashy" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
+      </a>
+      -->
+      <a href="/experience/">
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i> Learn more
+      </a>
+      <a href="https://www.linkedin.com/in/bashy/" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn
+      </a>
+    </div>
+  </section>
+</BaseLayout>

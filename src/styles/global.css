@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+:root {
+  --color-bg: #0b0c0a;
+  --color-surface: #141510;
+  --color-text: #e7e5df;
+  --color-muted: #7c8073;
+  --color-accent: #7fb26c;
+  --color-border: #232418;
+  --max-width: 38rem;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+
+main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header nav {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.site-header .brand {
+  font-weight: 700;
+  color: var(--color-text);
+  border-bottom: none;
+  font-size: 0.95rem;
+}
+
+.site-header .links a {
+  margin-left: 1.25rem;
+  color: var(--color-muted);
+  border-bottom: none;
+  font-size: 0.85rem;
+}
+
+.site-header .links a:hover {
+  color: var(--color-accent);
+}
+
+.site-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.site-footer a {
+  border-bottom: none;
+  color: var(--color-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.site-footer a:hover {
+  color: var(--color-accent);
+}
+
+/* Homepage signature layout */
+.landing {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.landing .name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+.cursor {
+  display: inline-block;
+  color: var(--color-accent);
+  animation: blink 1.1s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+}
+
+.landing .role {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.9rem;
+}
+
+.landing .langs {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.4rem;
+  font-size: 1rem;
+}
+
+.landing .tagline {
+  margin-top: 1rem;
+  max-width: 32rem;
+  color: var(--color-text);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.landing .tool-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--color-text);
+  border-bottom: 1px dashed var(--color-border);
+  padding-bottom: 1px;
+}
+
+.landing .tool-inline:hover,
+.landing .tool-inline:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.landing .tool-inline i {
+  font-size: 0.85em;
+}
+
+.landing .tool-icon-svg {
+  display: inline-flex;
+  width: 0.85em;
+  height: 0.85em;
+}
+
+.landing .tool-icon-svg svg {
+  width: 100%;
+  height: 100%;
+}
+
+.landing .links {
+  margin-top: 1.75rem;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.landing .links a {
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.landing .links i {
+  font-size: 0.95rem;
+}
+
+/* Blog */
+h1, h2, h3 {
+  line-height: 1.25;
+}
+
+/* Experience */
+.content-section {
+  margin-top: 2.5rem;
+}
+
+.content-section h2 {
+  font-size: 1.05rem;
+}
+
+.feature-list {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.feature-list li {
+  position: relative;
+  padding-left: 1.4rem;
+  line-height: 1.6;
+}
+
+.feature-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--color-accent);
+}
+
+.recent-posts,
+.post-list {
+  margin-top: 2.5rem;
+}
+
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li,
+.recent-posts li {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.post-list a,
+.recent-posts a {
+  border-bottom: none;
+}
+
+.post-date {
+  display: block;
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  margin-top: 0.15rem;
+}
+
+.see-all {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.post-header {
+  margin-bottom: 2rem;
+}
+
+.post-meta {
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.tag {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.post-content pre {
+  background: var(--color-surface);
+  padding: 1rem;
+  overflow-x: auto;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 1px solid var(--color-border);
+}
+
+.mermaid-diagram {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.mermaid-diagram svg {
+  max-width: 100%;
+}
+
+/* Skills list */
+.skills-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
+  gap: 0.5rem 1rem;
+}
+
+.skills-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.skills-list i {
+  color: var(--color-accent);
+  width: 1.1em;
+  text-align: center;
+}
+
+.skills-list .skill-icon-svg {
+  display: inline-flex;
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--color-accent);
+}
+
+.skills-list .skill-icon-svg svg {
+  width: 100%;
+  height: 100%;
+}

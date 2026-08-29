@@ -1,0 +1,123 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import uvIcon from '../icons/uv.svg?raw';
+import svelteIcon from '../icons/svelte.svg?raw';
+import ruffIcon from '../icons/ruff.svg?raw';
+import tyIcon from '../icons/ty.svg?raw';
+
+const skills = [
+  { icon: 'fa-brands fa-python', label: 'Python', href: 'https://www.python.org/' },
+  { svgIcon: uvIcon, label: 'uv', href: 'https://docs.astral.sh/uv/' },
+  { icon: 'fa-solid fa-network-wired', label: 'Cisco NSO', href: 'https://developer.cisco.com/site/nso/' },
+  { icon: 'fa-brands fa-gitlab', label: 'GitLab CI/CD', href: 'https://docs.gitlab.com/ee/ci/' },
+  { icon: 'fa-solid fa-bolt', label: 'FastAPI', href: 'https://fastapi.tiangolo.com/' },
+  { svgIcon: svelteIcon, label: 'Svelte', href: 'https://svelte.dev/' },
+  { icon: 'fa-brands fa-docker', label: 'Docker / DevContainers', href: 'https://containers.dev/' },
+  { svgIcon: ruffIcon, label: 'ruff', href: 'https://docs.astral.sh/ruff/' },
+  { icon: 'fa-solid fa-check-double', label: 'mypy', href: 'https://www.mypy-lang.org/' },
+  { svgIcon: tyIcon, label: 'ty', href: 'https://docs.astral.sh/ty/' },
+];
+---
+
+<BaseLayout title="Experience" description="Background and skills of Benjamin Pham-Bachelart.">
+  <h1>Experience</h1>
+
+  <p class="post-meta">Lead Dev NetDevOps · Bouygues Télécom</p>
+
+  <section class="content-section">
+    <p>
+      I'm a Lead Dev on the NetDevOps team at Bouygues Télécom, working on
+      network automation around <a href="https://developer.cisco.com/site/nso/" target="_blank" rel="noopener noreferrer">Cisco NSO</a>. I put most of my energy into
+      making sure the developers on my team spend the bulk of their time on
+      high-value business work, and as little as possible on repetitive,
+      low-value tasks.
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Background</h2>
+    <ul class="feature-list">
+      <li>
+        <strong><a href="https://www.bouyguestelecom.fr/" target="_blank" rel="noopener noreferrer">Bouygues Télécom</a></strong> — NetDevOps, then Lead Dev (2021–today), network automation around Cisco NSO
+      </li>
+      <li>
+        <strong><a href="https://www.sfr.fr/" target="_blank" rel="noopener noreferrer">SFR</a></strong> — Core network / Netops engineer (2013–2021), network automation in Python (REST/SOAP APIs, config and audit scripts) on the IP core and backbone
+      </li>
+      <li>
+        <strong>Education</strong> — Master's degree in Networks & Telecommunications, <a href="https://www.sorbonne-universite.fr/" target="_blank" rel="noopener noreferrer">Sorbonne University</a> (UPMC), 2013
+      </li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2>Automation</h2>
+    <p>
+      I automate as much as possible, mostly through <a href="https://docs.gitlab.com/ee/ci/" target="_blank" rel="noopener noreferrer">GitLab CI</a>.
+    </p>
+    <ul class="feature-list">
+      <li>
+        <strong>Releases</strong> — fully automated, infra-as-code production releases for NSO packages, driven by a single YAML source of truth
+      </li>
+      <li>
+        <strong>Onboarding</strong> — cut new developer onboarding from ~4 hours down to under 5 minutes with a <a href="https://containers.dev/" target="_blank" rel="noopener noreferrer">DevContainer</a>-based development environment
+      </li>
+      <li>
+        <strong>nem</strong> — designed (built with AI assistance) the NSO Environment Manager, a tool to easily spin up NSO environments and keep a dev environment up to date (checking the Git status of dependant package repos, etc.), easing the delivery process for the developers on my team
+      </li>
+      <li>
+        <strong>Dashboard</strong> — built (with AI assistance, in <a href="https://svelte.dev/" target="_blank" rel="noopener noreferrer">Svelte</a>) a dashboard that lists in-progress work with each merge request next to its linked Jira ticket on a single page, so developers don't have to go through Jira for something that brings them no added value, and to keep Jira and MR status in sync, giving managers and higher levels better visibility on KPIs
+      </li>
+      <li>
+        <strong>ZTP</strong> — built an HTTP server with <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener noreferrer">FastAPI</a> for the zero-touch provisioning of network equipment and the tracking of its rollout
+      </li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2>Python tooling</h2>
+    <p>
+      On every Python project, I default to <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener noreferrer">uv</a> instead of the "manual" venv, pip + requirements.txt for dependency management, virtual environments, and packaging.
+    </p>
+    <p>
+      I also pay close attention to code quality, using tools like <a href="https://docs.astral.sh/ruff/" target="_blank" rel="noopener noreferrer">ruff</a> and <a href="https://www.mypy-lang.org/" target="_blank" rel="noopener noreferrer">mypy</a> (soon to be replaced by <a href="https://docs.astral.sh/ty/" target="_blank" rel="noopener noreferrer">ty</a> on our projects).
+    </p>
+  </section>
+
+  <section class="content-section">
+    <h2>Languages</h2>
+    <ul class="feature-list">
+      <li>
+        <strong>French</strong> — native
+      </li>
+      <li>
+        <strong>English</strong> — full professional proficiency
+      </li>
+      <li>
+        <strong>Vietnamese</strong> — conversational, spoken daily at home, but limited for professional work
+      </li>
+      <li>
+        <strong>Japanese</strong> — basic, lived in Japan for a year, but rarely practiced since
+      </li>
+    </ul>
+  </section>
+
+  <section class="content-section">
+    <h2>Skills</h2>
+    <ul class="skills-list">
+      {skills.map((skill) => (
+        <li>
+          {skill.svgIcon ? (
+            <span class="skill-icon-svg" aria-hidden="true" set:html={skill.svgIcon} />
+          ) : (
+            <i class={skill.icon} aria-hidden="true"></i>
+          )}
+          {skill.href ? (
+            <a href={skill.href} target="_blank" rel="noopener noreferrer">{skill.label}</a>
+          ) : (
+            skill.label
+          )}
+        </li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>
