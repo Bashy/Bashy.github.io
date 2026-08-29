@@ -23,7 +23,9 @@ jobs:
 
       - name: Install, build, and upload your site
         uses: withastro/action@v3
-        # Utilise Node LTS et npm ci + npm run build automatiquement.
+        with:
+          node-version: 22
+        # Utilise npm ci + npm run build automatiquement.
         # Documentation : https://github.com/withastro/action
 
   deploy:
