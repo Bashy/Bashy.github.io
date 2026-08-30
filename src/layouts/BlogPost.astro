@@ -7,9 +7,10 @@ interface Props {
   description?: string;
   pubDate: Date;
   tags?: string[];
+  lang?: string;
 }
 
-const { title, description, pubDate, tags = [] } = Astro.props;
+const { title, description, pubDate, tags = [], lang } = Astro.props;
 
 const formattedDate = pubDate.toLocaleDateString('fr-FR', {
   year: 'numeric',
@@ -18,7 +19,7 @@ const formattedDate = pubDate.toLocaleDateString('fr-FR', {
 });
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang={lang}>
   <article class="post">
     <header class="post-header">
       <h1>{title}</h1>
