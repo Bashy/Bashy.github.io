@@ -6,7 +6,7 @@ tags: ["AI", "Vietnamese"]
 lang: "vi"
 ---
 
-*🇬🇧 Also available in English: [AI didn't make me faster. It changed my job.](/blog/ai-didnt-make-me-faster/) — 🇫🇷 Disponible en français : [L'IA ne m'a pas rendu plus rapide. Elle m'a changé de métier.](/blog/ai-ne-ma-pas-rendu-plus-rapide/)*
+*🇬🇧 Also available in English: [AI didn't make me faster. It changed my job.](/blog/en/ai-didnt-make-me-faster/) — 🇫🇷 Disponible en français : [L'IA ne m'a pas rendu plus rapide. Elle m'a changé de métier.](/blog/fr/ia-ne-ma-pas-rendu-plus-rapide/)*
 
 Một năm trước, mỗi khi nghĩ ra một công cụ mới, phần lớn thời gian và sức lực của mình dồn vào việc "làm sao để code cái này". Còn bây giờ, câu hỏi đó gần như biến mất khỏi công việc hàng ngày của mình.
 

@@ -6,7 +6,7 @@ tags: ["AI", "French"]
 lang: "fr"
 ---
 
-*🇬🇧 Also available in English: [AI didn't make me faster. It changed my job.](/blog/ai-didnt-make-me-faster/) — 🇻🇳 Cũng có bằng tiếng Việt: [AI không làm mình nhanh hơn, nó thay đổi công việc của mình](/blog/ai-khong-lam-minh-nhanh-hon/)*
+*🇬🇧 Also available in English: [AI didn't make me faster. It changed my job.](/blog/en/ai-didnt-make-me-faster/) — 🇻🇳 Cũng có bằng tiếng Việt: [AI không làm mình nhanh hơn, nó thay đổi công việc của mình](/blog/vi/ai-khong-lam-minh-nhanh-hon/)*
 
 Il y a encore un an, quand je pensais un nouvel outil, une bonne partie de mon énergie partait dans "comment on va coder ça". Aujourd'hui, cette question a presque disparu de mon quotidien.
 
