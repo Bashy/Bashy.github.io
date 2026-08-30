@@ -5,12 +5,14 @@ interface Props {
   title: string;
   description?: string;
   minimalBrand?: boolean;
+  lang?: string;
 }
 
 const {
   title,
   description = 'Lead Dev NetDevOps specializing in Python and Cisco NSO network automation.',
   minimalBrand = false,
+  lang = 'en',
 } = Astro.props;
 
 const pageTitle = `${title} · benjamin phạm-bachelart`;
@@ -18,7 +20,7 @@ const ogImage = new URL('/favicon.png', Astro.site).toString();
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -56,7 +58,7 @@ const ogImage = new URL('/favicon.png', Astro.site).toString();
         <div class="links">
           <a href="/">Home</a>
           <a href="/experience/">Experience</a>
-          <!-- <a href="/blog/">Blog</a> -->
+          <a href="/blog/">Blog</a>
 
         </div>
       </nav>
