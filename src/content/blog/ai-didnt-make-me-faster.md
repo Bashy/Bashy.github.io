@@ -6,7 +6,7 @@ tags: ["AI"]
 lang: "en"
 ---
 
-*🇻🇳 Also available in Vietnamese: [AI không làm mình nhanh hơn, nó thay đổi công việc của mình](/blog/ai-khong-lam-minh-nhanh-hon/) — 🇫🇷 Also available in French: [L'IA ne m'a pas rendu plus rapide. Elle m'a changé de métier.](/blog/ai-ne-ma-pas-rendu-plus-rapide/)*
+*🇻🇳 Also available in Vietnamese: [AI không làm mình nhanh hơn, nó thay đổi công việc của mình](/blog/ai-khong-lam-minh-nhanh-hon/) — 🇫🇷 Also available in French: [L'IA ne m'a pas rendu plus rapide. Elle m'a changé de métier.](/blog/ia-ne-ma-pas-rendu-plus-rapide/)*
 
 A year ago, whenever I was designing a new tool, a good chunk of my energy went into "how are we going to build this." Today, that question has almost disappeared from my day-to-day.
 
