@@ -4,13 +4,33 @@ import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const langLabels: Record<string, string> = {
+  en: '🇬🇧 English',
+  fr: '🇫🇷 Français',
+  vi: '🇻🇳 Tiếng Việt',
+};
+
+const langs = [...new Set(posts.map((post) => post.data.lang ?? 'en'))];
 ---
 
 <BaseLayout title="Blog">
   <h1>Blog</h1>
+
+  {langs.length > 1 && (
+    <div class="lang-filter" role="group" aria-label="Filter posts by language">
+      <button type="button" class="lang-filter-btn" data-lang="all" aria-pressed="true">All</button>
+      {langs.map((lang) => (
+        <button type="button" class="lang-filter-btn" data-lang={lang} aria-pressed="false">
+          {langLabels[lang] ?? lang}
+        </button>
+      ))}
+    </div>
+  )}
+
   <ul class="post-list">
     {posts.map((post) => (
-      <li>
+      <li data-lang={post.data.lang ?? 'en'}>
         <a href={`/blog/${post.id}/`}>{post.data.title}</a>
         <span class="post-date">
           {post.data.pubDate.toLocaleDateString('en-US')}
@@ -20,3 +40,19 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft))
     ))}
   </ul>
 </BaseLayout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.lang-filter-btn');
+  const items = document.querySelectorAll<HTMLLIElement>('.post-list li');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const lang = button.dataset.lang;
+
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+      items.forEach((item) => {
+        item.hidden = lang !== 'all' && item.dataset.lang !== lang;
+      });
+    });
+  });
+</script>
