@@ -6,6 +6,8 @@ tags: ["AI", "Vietnamese"]
 lang: "vi"
 ---
 
+*🇬🇧 Also available in English: [AI didn't make me faster. It changed my job.](/blog/ai-didnt-make-me-faster/)*
+
 Một năm trước, mỗi khi nghĩ ra một công cụ mới, phần lớn thời gian và sức lực của mình dồn vào việc "làm sao để code cái này". Còn bây giờ, câu hỏi đó gần như biến mất khỏi công việc hàng ngày của mình.
 
 Mình có thể tập trung gần như hoàn toàn vào việc mình muốn sản phẩm đó làm được gì: hành vi mong muốn, các trường hợp đặc biệt, những ràng buộc của công việc. Phần lập trình không còn chiếm hết sự chú ý của mình nữa — từ một kỹ sư chuyên code, mình đang dần trở thành người thiết kế cho những gì mình làm ra.
