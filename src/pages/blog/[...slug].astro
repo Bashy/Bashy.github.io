@@ -1,17 +1,37 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
+import type { Translation } from '../../layouts/BlogPost.astro';
+import { compareLang, readingTimeMinutes, toLang } from '../../i18n';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: { post },
-  }));
+
+  return posts.map((post) => {
+    // Les traductions d'un article sont les autres articles partageant sa
+    // `translationKey` : les liens entre langues n'ont plus à être écrits à la
+    // main dans le markdown.
+    const key = post.data.translationKey;
+    const translations: Translation[] = (key
+      ? posts.filter((other) => other.id !== post.id && other.data.translationKey === key)
+      : []
+    )
+      .map((other) => ({
+        lang: toLang(other.data.lang),
+        href: `/blog/${other.id}/`,
+        title: other.data.title,
+      }))
+      .sort((a, b) => compareLang(a.lang, b.lang));
+
+    return { params: { slug: post.id }, props: { post, translations } };
+  });
 }
 
-const { post } = Astro.props;
-const { Content } = await render(post);
+const { post, translations } = Astro.props;
+const { Content, headings } = await render(post);
+
+const lang = toLang(post.data.lang);
+const readingTime = readingTimeMinutes(post.body ?? '', lang);
 ---
 
 <BlogPost
@@ -19,7 +39,10 @@ const { Content } = await render(post);
   description={post.data.description}
   pubDate={post.data.pubDate}
   tags={post.data.tags}
-  lang={post.data.lang}
+  lang={lang}
+  readingTime={readingTime}
+  translations={translations}
+  headings={headings}
 >
   <Content />
 </BlogPost>

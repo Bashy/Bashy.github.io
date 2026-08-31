@@ -6,6 +6,8 @@ interface Props {
   description?: string;
   minimalBrand?: boolean;
   lang?: string;
+  /** Élargit la colonne : utilisé par les articles, dont le code et les tableaux débordent de la mesure de lecture. */
+  wide?: boolean;
 }
 
 const {
@@ -13,6 +15,7 @@ const {
   description = 'Lead Dev NetDevOps specializing in Python and Cisco NSO network automation.',
   minimalBrand = false,
   lang = 'en',
+  wide = false,
 } = Astro.props;
 
 const pageTitle = `${title} · benjamin phạm-bachelart`;
@@ -27,6 +30,13 @@ const ogImage = new URL('/favicon.png', Astro.site).toString();
     <meta name="description" content={description} />
     <link rel="canonical" href={Astro.url} />
     <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap"
+    />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
@@ -64,7 +74,7 @@ const ogImage = new URL('/favicon.png', Astro.site).toString();
       </nav>
     </header>
 
-    <main>
+    <main class:list={[{ wide }]}>
       <slot />
     </main>
 

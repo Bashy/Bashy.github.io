@@ -8,8 +8,6 @@ tags: ["python", "tooling", "devops", "uv"]
 draft: false
 ---
 
-*🇬🇧 Also available in English: [uv, or the death of "I couldn't get it installed"](/blog/en/uv-or-the-death-of-i-couldnt-get-it-installed/) — 🇻🇳 Cũng có bằng tiếng Việt: [uv, hay cái chết của câu « tôi cài không được »](/blog/vi/uv-hay-cai-chet-cua-cau-toi-cai-khong-duoc/)*
-
 Il y a un coût caché dans le développement d'outils internes en Python, et ce n'est presque jamais le code : c'est le support.
 
 Pendant des années, distribuer un outil Python à une équipe a voulu dire, en plus du code lui-même : un guide d'installation détaillé, un README qui grossit à chaque cas particulier, et surtout du temps passé à débugger l'environnement de gens qui n'ont jamais demandé à devenir des experts Python.

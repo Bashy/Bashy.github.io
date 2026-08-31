@@ -8,8 +8,6 @@ tags: ["python", "tooling", "devops", "uv"]
 draft: false
 ---
 
-*🇬🇧 Also available in English: [uv, or the death of "I couldn't get it installed"](/blog/en/uv-or-the-death-of-i-couldnt-get-it-installed/) — 🇫🇷 Disponible en français : [uv, ou la mort du « j'ai pas réussi à l'installer »](/blog/fr/uv-ou-la-mort-du-jai-pas-reussi-a-linstaller/)*
-
 Có một chi phí ẩn trong việc phát triển công cụ nội bộ bằng Python, và gần như không bao giờ đó là phần code. Đó là hỗ trợ kỹ thuật (support).
 
 Trong nhiều năm, việc phân phối một công cụ Python cho cả team đồng nghĩa với, ngoài phần code: một hướng dẫn cài đặt chi tiết, một README ngày càng dài ra sau mỗi trường hợp ngoại lệ, và trên hết là thời gian debug môi trường của những người chưa từng muốn trở thành chuyên gia Python.
