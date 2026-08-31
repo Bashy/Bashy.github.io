@@ -356,7 +356,11 @@ h1, h2, h3 {
 }
 
 .post-date {
-  display: block;
+  /* `flex` + `gap` plutôt qu'une espace littérale : Astro supprime les blancs
+     entre un élément et une expression, le drapeau se collait à la date. */
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
   color: var(--color-muted);
   font-size: 0.8rem;
   margin-top: 0.15rem;
