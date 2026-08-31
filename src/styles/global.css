@@ -15,13 +15,13 @@
   --color-border-strong: #33362a;
 
   --max-width: 38rem;
-  /* Les articles ont une colonne plus large que leur mesure de lecture : le
-     surplus sert aux blocs de code, tableaux et diagrammes. */
-  --max-width-wide: 48rem;
-  /* Mesure de lecture : ~60 caractères par ligne avec la mono ci-dessous.
-     Une mono étant plus large qu'une proportionnelle, la colonne doit être
-     plus large que les ~33rem habituels pour tenir le même nombre de signes. */
-  --measure: 37rem;
+  /* Colonne des articles : ~62 caractères par ligne avec la mono ci-dessous
+     (la zone confortable va de 50 à 75). Une mono étant plus large qu'une
+     proportionnelle, il faut plus que les ~33rem habituels pour le même
+     nombre de signes. Texte, code et tableaux partagent cette largeur : un
+     seul bord gauche, un seul bord droit. */
+  --measure: 39rem;
+  --max-width-wide: calc(var(--measure) + 2.5rem); /* + le padding de `main` */
 
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   /* Police du corps des articles : la mono, comme le reste du site.
@@ -384,15 +384,7 @@ h1, h2, h3 {
   color: var(--color-accent);
 }
 
-/* La colonne de texte est calée sur la mesure de lecture ; `.post` lui-même
-   reste large pour que code, tableaux et diagrammes puissent déborder. */
-.post-rail,
-.post-header,
-.toc,
-.post-footer {
-  max-width: var(--measure);
-  margin-inline: auto;
-}
+/* Rien ne dépasse de la colonne : `main.wide` la dimensionne déjà. */
 
 .post-header {
   margin-top: 2rem;
@@ -519,25 +511,19 @@ h1, h2, h3 {
   font-family: var(--font-prose);
   font-size: var(--prose-size);
   line-height: 1.75;
-  /* Colonne de texte centrée à la mesure de lecture ; les blocs larges
-     (code, tableaux, diagrammes) s'étendent sur toute la largeur. */
+  /* Grille à une colonne : `row-gap` donne un rythme vertical régulier sans
+     dépendre de la fusion des marges. `minmax(0, …)` empêche un enfant large
+     (code, tableau) d'élargir la colonne. */
   display: grid;
-  /* `minmax(0, …)` : sans ça, un enfant large (table, code) élargit les
-     colonnes latérales et décale toute la colonne de texte. */
-  grid-template-columns: minmax(0, 1fr) min(var(--measure), 100%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   row-gap: 1.35em;
 }
 
 .post-content > * {
-  grid-column: 2;
-  margin-block: 0;
+  /* `margin-inline` aussi : sinon la marge par défaut du navigateur sur
+     blockquote (40px) le décale du bord gauche commun. */
+  margin: 0;
   min-width: 0;
-}
-
-.post-content > pre,
-.post-content > table,
-.post-content > .mermaid-diagram {
-  grid-column: 1 / -1;
 }
 
 .post-content p {

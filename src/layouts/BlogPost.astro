@@ -45,11 +45,9 @@ const showToc = tocEntries.filter((heading) => heading.depth === 2).length >= 3;
 ---
 
 <BaseLayout title={title} description={description} lang={lang} wide>
-  <div class="post-rail">
-    <a class="back-link" href="/blog/">
-      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {t.backToBlog}
-    </a>
-  </div>
+  <a class="back-link" href="/blog/">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {t.backToBlog}
+  </a>
 
   <article class="post">
     <header class="post-header">
