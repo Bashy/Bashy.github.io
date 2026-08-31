@@ -1,42 +1,139 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Mermaid from '../components/Mermaid.astro';
+import { formatDate, langFlags, langLabels, ui, type Lang } from '../i18n';
+
+export type Translation = {
+  lang: Lang;
+  href: string;
+  title: string;
+};
+
+export type Heading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
 
 interface Props {
   title: string;
   description?: string;
   pubDate: Date;
   tags?: string[];
-  lang?: string;
+  lang: Lang;
+  readingTime: number;
+  translations?: Translation[];
+  headings?: Heading[];
 }
 
-const { title, description, pubDate, tags = [], lang } = Astro.props;
+const {
+  title,
+  description,
+  pubDate,
+  tags = [],
+  lang,
+  readingTime,
+  translations = [],
+  headings = [],
+} = Astro.props;
 
-const formattedDate = pubDate.toLocaleDateString('fr-FR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const t = ui[lang];
+
+// Le sommaire ne se justifie que sur un article réellement découpé en sections.
+const tocEntries = headings.filter((heading) => heading.depth === 2 || heading.depth === 3);
+const showToc = tocEntries.filter((heading) => heading.depth === 2).length >= 3;
 ---
 
-<BaseLayout title={title} description={description} lang={lang}>
+<BaseLayout title={title} description={description} lang={lang} wide>
+  <a class="back-link" href="/blog/">
+    <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {t.backToBlog}
+  </a>
+
   <article class="post">
     <header class="post-header">
       <h1>{title}</h1>
+
       <p class="post-meta">
-        <time datetime={pubDate.toISOString()}>{formattedDate}</time>
-        {tags.length > 0 && (
-          <span class="tags">
-            {tags.map((tag) => <span class="tag">{tag}</span>)}
-          </span>
-        )}
+        <time datetime={pubDate.toISOString()}>{formatDate(pubDate, lang)}</time>
+        <span class="post-meta-sep" aria-hidden="true">·</span>
+        <span class="reading-time">{t.readingTime(readingTime)}</span>
       </p>
+
+      {tags.length > 0 && (
+        <p class="tags">
+          {tags.map((tag) => <span class="tag">{tag}</span>)}
+        </p>
+      )}
+
+      {translations.length > 0 && (
+        <nav class="translations" aria-label={t.alsoAvailableIn}>
+          <span class="translations-label">{t.alsoAvailableIn}</span>
+          <span class="translations-links">
+            {translations.map((translation) => (
+              <a href={translation.href} hreflang={translation.lang} lang={translation.lang}>
+                <span aria-hidden="true">{langFlags[translation.lang]}</span>
+                {langLabels[translation.lang]}
+              </a>
+            ))}
+          </span>
+        </nav>
+      )}
     </header>
+
+    {showToc && (
+      <nav class="toc" aria-labelledby="toc-heading">
+        <h2 class="toc-title" id="toc-heading">{t.tableOfContents}</h2>
+        <ol>
+          {tocEntries.map((heading) => (
+            <li class={heading.depth === 3 ? 'toc-sub' : undefined}>
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
 
     <div class="post-content">
       <slot />
     </div>
   </article>
 
+  <footer class="post-footer">
+    {translations.length > 0 && (
+      <nav class="translations" aria-label={t.alsoAvailableIn}>
+        <span class="translations-label">{t.alsoAvailableIn}</span>
+        <span class="translations-links">
+          {translations.map((translation) => (
+            <a href={translation.href} hreflang={translation.lang} lang={translation.lang}>
+              <span aria-hidden="true">{langFlags[translation.lang]}</span>
+              {translation.title}
+            </a>
+          ))}
+        </span>
+      </nav>
+    )}
+
+    <a class="back-link" href="/blog/">
+      <i class="fa-solid fa-arrow-left" aria-hidden="true"></i> {t.backToBlog}
+    </a>
+  </footer>
+
   <Mermaid />
 </BaseLayout>
+
+<script>
+  // Ancre de partage sur les titres de section. Injectée côté client : les ids
+  // sont posés par Astro après les plugins rehype, donc indisponibles au build.
+  // Purement décoratif (aria-hidden) : la navigation par titres reste native.
+  for (const heading of document.querySelectorAll<HTMLElement>(
+    '.post-content :is(h2, h3, h4)[id]',
+  )) {
+    const anchor = document.createElement('a');
+    anchor.className = 'heading-anchor';
+    anchor.href = `#${heading.id}`;
+    anchor.textContent = '#';
+    anchor.setAttribute('aria-hidden', 'true');
+    anchor.tabIndex = -1;
+    heading.append(anchor);
+  }
+</script>

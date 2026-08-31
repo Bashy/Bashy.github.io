@@ -1,17 +1,12 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { compareLang, formatDate, langFlags, langLabels, toLang } from '../../i18n';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-const langLabels: Record<string, string> = {
-  en: '🇬🇧 English',
-  fr: '🇫🇷 Français',
-  vi: '🇻🇳 Tiếng Việt',
-};
-
-const langs = [...new Set(posts.map((post) => post.data.lang ?? 'en'))];
+const langs = [...new Set(posts.map((post) => toLang(post.data.lang)))].sort(compareLang);
 ---
 
 <BaseLayout title="Blog">
@@ -22,7 +17,7 @@ const langs = [...new Set(posts.map((post) => post.data.lang ?? 'en'))];
       <button type="button" class="lang-filter-btn" data-lang="all" aria-pressed="true">All</button>
       {langs.map((lang) => (
         <button type="button" class="lang-filter-btn" data-lang={lang} aria-pressed="false">
-          {langLabels[lang] ?? lang}
+          {langFlags[lang]} {langLabels[lang]}
         </button>
       ))}
     </div>
@@ -30,10 +25,11 @@ const langs = [...new Set(posts.map((post) => post.data.lang ?? 'en'))];
 
   <ul class="post-list">
     {posts.map((post) => (
-      <li data-lang={post.data.lang ?? 'en'}>
+      <li data-lang={toLang(post.data.lang)} lang={toLang(post.data.lang)}>
         <a href={`/blog/${post.id}/`}>{post.data.title}</a>
         <span class="post-date">
-          {post.data.pubDate.toLocaleDateString('en-US')}
+          <span aria-hidden="true">{langFlags[toLang(post.data.lang)]}</span>
+          {formatDate(post.data.pubDate, toLang(post.data.lang))}
         </span>
         {post.data.description && <p>{post.data.description}</p>}
       </li>

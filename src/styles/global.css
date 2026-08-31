@@ -1,14 +1,34 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+/* Les polices sont chargées via <link> dans BaseLayout : un @import ici
+   sérialiserait le téléchargement derrière celui de cette feuille. */
 
 :root {
   --color-bg: #0b0c0a;
   --color-surface: #141510;
+  --color-code-bg: #101109;
   --color-text: #e7e5df;
-  --color-muted: #7c8073;
+  --color-text-strong: #f5f3ed;
+  /* 6.8:1 sur le fond : lisible aux petites tailles (dates, tags, légendes). */
+  --color-muted: #949a8b;
   --color-accent: #7fb26c;
+  --color-accent-dim: rgba(127, 178, 108, 0.45);
   --color-border: #232418;
+  --color-border-strong: #33362a;
+
   --max-width: 38rem;
+  /* Colonne des articles : ~62 caractères par ligne avec la mono ci-dessous
+     (la zone confortable va de 50 à 75). Une mono étant plus large qu'une
+     proportionnelle, il faut plus que les ~33rem habituels pour le même
+     nombre de signes. Texte, code et tableaux partagent cette largeur : un
+     seul bord gauche, un seul bord droit. */
+  --measure: 39rem;
+  --max-width-wide: calc(var(--measure) + 2.5rem); /* + le padding de `main` */
+
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Police du corps des articles : la mono, comme le reste du site.
+     JetBrains Mono couvre bien le vietnamien, diacritiques doubles compris
+     (ế, ỗ, ử…), donc les trois langues sont rendues par la même police. */
+  --font-prose: var(--font-mono);
+  --prose-size: clamp(0.95rem, 0.9rem + 0.3vw, 1.0625rem);
 }
 
 * {
@@ -17,6 +37,7 @@
 
 html {
   background: var(--color-bg);
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -25,12 +46,24 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-bg);
 }
 
 main {
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 2rem 1.25rem 4rem;
+}
+
+main.wide {
+  max-width: var(--max-width-wide);
 }
 
 a {
@@ -49,19 +82,29 @@ a:focus-visible {
 a:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
+  border-radius: 2px;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* ---------- Chrome du site ---------- */
 
 .site-header {
   border-bottom: 1px solid var(--color-border);
 }
 
 .site-header nav {
-  max-width: var(--max-width);
+  max-width: var(--max-width-wide);
   margin: 0 auto;
   padding: 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 .site-header .brand {
@@ -71,8 +114,14 @@ a:focus-visible {
   font-size: 0.95rem;
 }
 
+.site-header .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  justify-content: flex-end;
+}
+
 .site-header .links a {
-  margin-left: 1.25rem;
   color: var(--color-muted);
   border-bottom: none;
   font-size: 0.85rem;
@@ -83,7 +132,7 @@ a:focus-visible {
 }
 
 .site-footer {
-  max-width: var(--max-width);
+  max-width: var(--max-width-wide);
   margin: 0 auto;
   padding: 1.5rem 1.25rem 3rem;
   color: var(--color-muted);
@@ -103,7 +152,8 @@ a:focus-visible {
   color: var(--color-accent);
 }
 
-/* Homepage signature layout */
+/* ---------- Page d'accueil ---------- */
+
 .landing {
   min-height: calc(100vh - 140px);
   display: flex;
@@ -162,7 +212,7 @@ a:focus-visible {
   align-items: center;
   gap: 0.3rem;
   color: var(--color-text);
-  border-bottom: 1px dashed var(--color-border);
+  border-bottom: 1px dashed var(--color-border-strong);
   padding-bottom: 1px;
 }
 
@@ -195,7 +245,7 @@ a:focus-visible {
 
 .landing .links a {
   font-size: 0.9rem;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border-strong);
   padding-bottom: 1px;
   display: inline-flex;
   align-items: center;
@@ -206,12 +256,13 @@ a:focus-visible {
   font-size: 0.95rem;
 }
 
-/* Blog */
 h1, h2, h3 {
   line-height: 1.25;
+  text-wrap: balance;
 }
 
-/* Experience */
+/* ---------- Page Experience ---------- */
+
 .content-section {
   margin-top: 2.5rem;
 }
@@ -242,6 +293,8 @@ h1, h2, h3 {
   color: var(--color-accent);
 }
 
+/* ---------- Index du blog ---------- */
+
 .lang-filter {
   margin-top: 1.5rem;
   display: flex;
@@ -254,7 +307,7 @@ h1, h2, h3 {
   font-size: 0.8rem;
   color: var(--color-muted);
   background: transparent;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   padding: 0.3rem 0.75rem;
   cursor: pointer;
@@ -285,13 +338,21 @@ h1, h2, h3 {
 
 .post-list li,
 .recent-posts li {
-  padding: 0.75rem 0;
+  padding: 1rem 0;
   border-bottom: 1px solid var(--color-border);
 }
 
 .post-list a,
 .recent-posts a {
   border-bottom: none;
+  font-weight: 500;
+}
+
+.post-list li p {
+  margin: 0.4rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
 }
 
 .post-date {
@@ -307,45 +368,401 @@ h1, h2, h3 {
   font-size: 0.9rem;
 }
 
+/* ---------- Page d'article ---------- */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--color-muted);
+  border-bottom: none;
+}
+
+.back-link:hover,
+.back-link:focus-visible {
+  color: var(--color-accent);
+}
+
+/* Rien ne dépasse de la colonne : `main.wide` la dimensionne déjà. */
+
 .post-header {
-  margin-bottom: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.post-header h1 {
+  font-size: clamp(1.5rem, 1.25rem + 1.2vw, 2rem);
+  letter-spacing: -0.02em;
+  margin: 0;
 }
 
 .post-meta {
+  margin: 0.9rem 0 0;
   color: var(--color-muted);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.post-meta-sep {
+  color: var(--color-border-strong);
+}
+
+.tags {
+  margin: 0.75rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 
 .tag {
-  display: inline-block;
-  margin-left: 0.5rem;
-  padding: 0.1rem 0.5rem;
-  border: 1px solid var(--color-border);
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--color-border-strong);
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--color-muted);
 }
 
-.post-content pre {
-  background: var(--color-surface);
-  padding: 1rem;
-  overflow-x: auto;
-  border-radius: 6px;
-  font-size: 0.85rem;
+/* Sélecteur de langue, alimenté par `translationKey`. */
+.translations {
+  margin-top: 1.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+}
+
+.translations-label {
+  color: var(--color-muted);
+}
+
+.translations-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.translations-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  color: var(--color-text);
+}
+
+.translations-links a:hover,
+.translations-links a:focus-visible {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* Sommaire */
+.toc {
+  margin-bottom: 2.5rem;
+  padding: 1rem 1.25rem;
   border: 1px solid var(--color-border);
+  border-left: 2px solid var(--color-accent-dim);
+  border-radius: 6px;
+  background: var(--color-surface);
+}
+
+.toc-title {
+  margin: 0 0 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+
+.toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+.toc li.toc-sub {
+  padding-left: 1.1rem;
+}
+
+.toc a {
+  border-bottom: none;
+  color: var(--color-text);
+}
+
+.toc a:hover,
+.toc a:focus-visible {
+  color: var(--color-accent);
+}
+
+/* ---------- Corps de l'article ---------- */
+
+.post-content {
+  font-family: var(--font-prose);
+  font-size: var(--prose-size);
+  line-height: 1.75;
+  /* Grille à une colonne : `row-gap` donne un rythme vertical régulier sans
+     dépendre de la fusion des marges. `minmax(0, …)` empêche un enfant large
+     (code, tableau) d'élargir la colonne. */
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 1.35em;
+}
+
+.post-content > * {
+  /* `margin-inline` aussi : sinon la marge par défaut du navigateur sur
+     blockquote (40px) le décale du bord gauche commun. */
+  margin: 0;
+  min-width: 0;
+}
+
+.post-content p {
+  overflow-wrap: break-word;
+}
+
+/* Les titres restent en mono : ils tranchent avec le serif du texte et
+   gardent l'identité du site. */
+.post-content :is(h2, h3, h4) {
+  font-family: var(--font-mono);
+  letter-spacing: -0.01em;
+  color: var(--color-text-strong);
+  scroll-margin-top: 1.5rem;
+}
+
+.post-content > h2 {
+  font-size: 1.2em;
+  margin-top: 1.4em;
+}
+
+.post-content > h3 {
+  font-size: 1.02em;
+  margin-top: 0.8em;
+}
+
+/* Ancre de partage, injectée par BlogPost.astro. */
+.heading-anchor {
+  margin-left: 0.4em;
+  border-bottom: none;
+  color: var(--color-border-strong);
+  font-weight: 400;
+  opacity: 0;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+:is(h2, h3, h4):hover > .heading-anchor,
+.heading-anchor:focus-visible {
+  opacity: 1;
+  color: var(--color-accent);
+}
+
+.post-content strong {
+  font-weight: 600;
+  color: var(--color-text-strong);
+}
+
+.post-content a {
+  color: var(--color-accent);
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-dim);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.post-content a:hover,
+.post-content a:focus-visible {
+  text-decoration-color: var(--color-accent);
+}
+
+.post-content :is(ul, ol) {
+  padding-left: 1.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.post-content li::marker {
+  color: var(--color-accent);
+}
+
+.post-content ol > li::marker {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+}
+
+.post-content li > :is(p, ul, ol) {
+  margin-block: 0.5em 0;
+}
+
+/* Encadré (les articles s'en servent pour le TL;DR). */
+.post-content blockquote {
+  padding: 0.9em 1.2em;
+  border: 1px solid var(--color-border);
+  border-left: 2px solid var(--color-accent);
+  border-radius: 6px;
+  background: var(--color-surface);
+  font-size: 0.95em;
+}
+
+.post-content blockquote > :first-child {
+  margin-top: 0;
+}
+
+.post-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.post-content blockquote p {
+  margin-block: 0.5em;
+}
+
+/* Code inline : doit se distinguer du texte courant sans le hacher. */
+.post-content :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  padding: 0.12em 0.36em;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  background: var(--color-code-bg);
+  overflow-wrap: break-word;
+}
+
+/* Shiki pose la couleur de fond en style inline : il faut la surcharger pour
+   rester dans la palette du site. */
+.post-content pre {
+  background: var(--color-code-bg) !important;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  tab-size: 2;
+}
+
+.post-content pre code {
+  font-family: var(--font-mono);
+}
+
+.post-content pre:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86em;
+  font-family: var(--font-mono);
+}
+
+.post-content :is(th, td) {
+  padding: 0.55em 0.8em;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+}
+
+.post-content th {
+  color: var(--color-muted);
+  font-weight: 500;
+  font-size: 0.9em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom-color: var(--color-border-strong);
+  white-space: nowrap;
+}
+
+.post-content tbody tr:last-child :is(th, td) {
+  border-bottom: none;
+}
+
+.post-content table code {
+  white-space: nowrap;
+}
+
+/* Séparateur de section. */
+.post-content hr {
+  width: 5rem;
+  margin: 1em auto;
+  border: 0;
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+}
+
+.post-content figcaption {
+  margin-top: 0.5em;
+  color: var(--color-muted);
+  font-size: 0.85em;
+  text-align: center;
 }
 
 .mermaid-diagram {
   display: flex;
   justify-content: center;
-  margin: 1.5rem 0;
+  margin: 0.5rem 0;
 }
 
 .mermaid-diagram svg {
   max-width: 100%;
+  height: auto;
 }
 
-/* Skills list */
+.post-footer {
+  margin-top: 3.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.post-footer .translations {
+  margin-top: 0;
+}
+
+/* Sur petits écrans, la césure évite les lézardes dans une colonne étroite. */
+@media (max-width: 30rem) {
+  .post-content {
+    hyphens: auto;
+  }
+
+  .post-content pre {
+    border-radius: 0;
+    border-inline: 0;
+    /* Le bloc de code prend toute la largeur de l'écran, marges comprises. */
+    margin-inline: -1.25rem;
+    padding-inline: 1.25rem;
+  }
+
+  /* La table devient une zone scrollable au lieu d'élargir la page. */
+  .post-content table {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+}
+
+/* ---------- Compétences ---------- */
+
 .skills-list {
   list-style: none;
   padding: 0;
