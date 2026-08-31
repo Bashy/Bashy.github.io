@@ -1,8 +1,8 @@
 ---
 title: "AI không làm mình nhanh hơn, nó thay đổi công việc của mình"
-description: "Một năm dùng AI để code: ít thời gian viết code hơn, nhưng nhiều thời gian hơn cho việc kiểm tra, thiết kế, và cuối cùng cũng giải quyết được khoản nợ kỹ thuật cũ."
+description: "Công việc của mình đã thay đổi thế nào từ khi code với AI, và tại sao điều đó không có nghĩa là ít việc hơn."
 pubDate: 2026-08-30
-tags: ["AI", "Vietnamese"]
+tags: ["AI"]
 lang: "vi"
 translationKey: "ai-technical-debt"
 ---
@@ -17,7 +17,8 @@ Và trong môi trường công ty, một công cụ không thể chỉ dừng l�
 
 Cụ thể thì nó thay đổi mình theo hai hướng:
 
-- **Với cái mới**: mình có thể kiểm tra tính khả thi về mặt kỹ thuật của một ý tưởng chỉ trong vài giờ thay vì vài ngày, và đi từ ý tưởng đến một sản phẩm dùng được rất nhanh.
-- **Với cái cũ**: mình cuối cùng cũng có thể giải quyết những việc bị bỏ quên trong danh sách công việc từ lâu — làm lại những công cụ đã lỗi thời, mà trước giờ chưa bao giờ đủ quan trọng để dành thời gian cho nó.
+→ Với cái mới: mình có thể kiểm tra tính khả thi về mặt kỹ thuật của một ý tưởng chỉ trong vài giờ thay vì vài ngày, và đi từ ý tưởng đến một sản phẩm dùng được rất nhanh
+
+→ Với cái cũ: mình cuối cùng cũng có thể giải quyết những việc bị bỏ quên trong danh sách công việc từ lâu — làm lại những công cụ đã lỗi thời, mà trước giờ chưa bao giờ đủ quan trọng để dành thời gian cho nó
 
 Cả hai đều quan trọng như nhau. Nhưng nếu có một điều mình thấy rõ nhất mà trước đây khó mà đo được, thì đó chính là "nợ kỹ thuật": giờ đây không chỉ là "lần sau sẽ làm nhanh hơn", mà là "cuối cùng cũng giải quyết được những gì mình chưa bao giờ có thời gian để làm".

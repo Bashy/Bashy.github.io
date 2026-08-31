@@ -1,8 +1,8 @@
 ---
 title: "L'IA ne m'a pas rendu plus rapide. Elle m'a changé de métier."
-description: "Un an à construire avec l'IA : moins de temps passé à coder, plus de temps sur la qualification, la conception, et enfin le remboursement d'une vieille dette technique."
+description: "Ce qui a changé dans mon métier depuis que je code avec l'IA, et pourquoi ça ne veut pas dire moins de travail."
 pubDate: 2026-08-30
-tags: ["AI", "French"]
+tags: ["AI"]
 lang: "fr"
 translationKey: "ai-technical-debt"
 ---
@@ -17,7 +17,8 @@ Et en entreprise, un outil ne peut pas s'arrêter à un MVP. Il doit rester main
 
 Ce que ça change concrètement, sur deux fronts à la fois :
 
-- **Sur le neuf** : je peux tester la viabilité technique d'une idée en quelques heures plutôt qu'en plusieurs jours, et passer du concept à un premier livrable exploitable très vite.
-- **Sur l'existant** : je peux enfin m'attaquer à ce qui traînait dans le backlog depuis des mois — les refontes d'outils devenus obsolètes, jamais assez prioritaires pour qu'on y consacre du temps.
+→ Sur le neuf : je peux tester la viabilité technique d'une idée en quelques heures plutôt qu'en plusieurs jours, et passer du concept à un premier livrable exploitable très vite
+
+→ Sur l'existant : je peux enfin m'attaquer à ce qui traînait dans le backlog depuis des mois — les refontes d'outils devenus obsolètes, jamais assez prioritaires pour qu'on y consacre du temps
 
 Les deux comptent autant l'un que l'autre. Mais s'il y a un terrain où je vois un gain qu'on ne mesurait pas avant, c'est celui de la dette technique : ce n'est plus seulement "on ira plus vite sur le prochain projet", c'est "on peut enfin traiter ce qu'on n'avait jamais le temps de traiter".
