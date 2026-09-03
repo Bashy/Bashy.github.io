@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import uvIcon from '../icons/uv.svg?raw';
 import svelteIcon from '../icons/svelte.svg?raw';
@@ -26,11 +26,19 @@ const skills = [
 
   <section class="content-section">
     <p>
-      I'm a Lead Dev on the NetDevOps team at Bouygues Télécom, working on
-      network automation around <a href="https://developer.cisco.com/site/nso/" target="_blank" rel="noopener noreferrer">Cisco NSO</a>. I put most of my energy into
-      making sure the developers on my team spend the bulk of their time on
-      high-value business work, and as little as possible on repetitive,
-      low-value tasks.
+      I'm the Lead Dev on a 14-strong NetDevOps team at Bouygues Télécom,
+      working on network automation around <a href="https://developer.cisco.com/site/nso/" target="_blank" rel="noopener noreferrer">Cisco NSO</a>. The team has its own
+      manager and product owner, so my role is a technical one: I set the
+      direction the developers build against, and I run the technical round
+      when the team hires. Most of those developers come from software rather
+      than networking, which is why the team keeps three network referents —
+      I'm one of them, so I carry domain authority on the network we automate,
+      not only on the code that automates it.
+    </p>
+    <p>
+      Most of my energy goes into making sure those developers spend the bulk
+      of their time on high-value business work, and as little as possible on
+      repetitive, low-value tasks.
     </p>
   </section>
 
@@ -41,7 +49,7 @@ const skills = [
         <strong><a href="https://www.bouyguestelecom.fr/" target="_blank" rel="noopener noreferrer">Bouygues Télécom</a></strong> — NetDevOps, then Lead Dev (2021–today), network automation around Cisco NSO
       </li>
       <li>
-        <strong><a href="https://www.sfr.fr/" target="_blank" rel="noopener noreferrer">SFR</a></strong> — Core network / Netops engineer (2013–2021), network automation in Python (REST/SOAP APIs, config and audit scripts) on the IP core and backbone
+        <strong><a href="https://www.sfr.fr/" target="_blank" rel="noopener noreferrer">SFR</a></strong> (formerly Completel) — SP Core Network Engineer (2013–2021). Eight years on the IP core and backbone of one of France's four main ISPs, across Cisco IOS-XR, IOS-XE and NX-OS, Juniper M and MX, Nokia SROS on 7750 and 7250, and Ericsson SmartEdge. I wrote the engineering plans for upgrades, new platforms and backbone evolutions, then ran the resulting operations on the live network alongside the NOC — and led the integration of Huawei aggregation switches into the core. Technical referent for L2 infrastructure, and one of the first there to work with Cisco NSO. I also changed what we handed the operations teams for configuration and audit work: a <a href="https://www.python.org/" target="_blank" rel="noopener noreferrer">Python</a> script that ran, rather than a Word procedure to copy-paste from
       </li>
       <li>
         <strong>Education</strong> — Master's degree in Networks & Telecommunications, <a href="https://www.sorbonne-universite.fr/" target="_blank" rel="noopener noreferrer">Sorbonne University</a> (UPMC), 2013
@@ -52,34 +60,55 @@ const skills = [
   <section class="content-section">
     <h2>Automation</h2>
     <p>
-      I automate as much as possible, mostly through <a href="https://docs.gitlab.com/ee/ci/" target="_blank" rel="noopener noreferrer">GitLab CI</a>.
+      Most of what I build is internal tooling, and nearly all of it replaces
+      something that was already in place — without disrupting the people who
+      depended on it; a good part of it runs on <a href="https://docs.gitlab.com/ee/ci/" target="_blank" rel="noopener noreferrer">GitLab CI</a>. It also has to
+      carry the network knowledge the developers don't have: the checks and
+      guardrails below are what let people without an operator background work
+      safely on a national ISP's network.
     </p>
-    <ul class="feature-list">
-      <li>
-        <strong>Releases</strong> — fully automated, infra-as-code production releases for NSO packages, driven by a single YAML source of truth
-      </li>
-      <li>
-        <strong>Onboarding</strong> — cut new developer onboarding from ~4 hours down to under 5 minutes with a <a href="https://containers.dev/" target="_blank" rel="noopener noreferrer">DevContainer</a>-based development environment
-      </li>
-      <li>
-        <strong>nem</strong> — designed (built with AI assistance) the NSO Environment Manager, a tool to easily spin up NSO environments and keep a dev environment up to date (checking the Git status of dependant package repos, etc.), easing the delivery process for the developers on my team
-      </li>
-      <li>
-        <strong>Dashboard</strong> — built (with AI assistance, in <a href="https://svelte.dev/" target="_blank" rel="noopener noreferrer">Svelte</a>) a dashboard that lists in-progress work with each merge request next to its linked Jira ticket on a single page, so developers don't have to go through Jira for something that brings them no added value, and to keep Jira and MR status in sync, giving managers and higher levels better visibility on KPIs
-      </li>
-      <li>
-        <strong>ZTP</strong> — built an HTTP server with <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener noreferrer">FastAPI</a> for the zero-touch provisioning of network equipment and the tracking of its rollout
-      </li>
-    </ul>
-  </section>
+    <h3 id="releases">Releases</h3>
+    <p>
+      170+ NSO packages in production, all shipped through the same infra-as-code pipeline, driven by a single YAML source of truth. Once the YAML is committed and the prod branch tagged, pre-checks, code and NED deployment, package reload and post-checks run in 15 minutes — against at least 3 hours of hands-on work before, taking us from at most one production release a month to two or three.
+    </p>
 
-  <section class="content-section">
-    <h2>Python tooling</h2>
+    <h3 id="nem">nem</h3>
     <p>
-      On every Python project, I default to <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener noreferrer">uv</a> instead of the "manual" venv, pip + requirements.txt for dependency management, virtual environments, and packaging.
+      The NSO Environment Manager: spins up a complete NSO environment from a YAML file, in CI or on a developer's machine (here, one NSO package is one GitLab repo). I replaced the sequential <a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible</a> playbook and Cisco's own sequential dependency resolver with an <a href="https://docs.python.org/3/library/asyncio.html" target="_blank" rel="noopener noreferrer">asyncio</a> engine modelled on theirs, cutting CI test job times by 35% on average and up to 50%.
     </p>
     <p>
-      I also pay close attention to code quality, using tools like <a href="https://docs.astral.sh/ruff/" target="_blank" rel="noopener noreferrer">ruff</a> and <a href="https://www.mypy-lang.org/" target="_blank" rel="noopener noreferrer">mypy</a> (soon to be replaced by <a href="https://docs.astral.sh/ty/" target="_blank" rel="noopener noreferrer">ty</a> on our projects).
+      For developers it put an end to silent environment drift — nem status reports each package's branch, commit and position against its remote, nem sync brings the whole environment back up to date in one command, and the nem init --from-mr line now added to every merge request lets any reviewer rebuild the author's exact environment. Used directly by 15–30 developers, and by 50+ people through CI.
+    </p>
+
+    <h3 id="onboarding">Onboarding</h3>
+    <p>
+      Getting a new developer set up used to demand real Linux fluency: installing NSO by hand, creating the workspace with ncs-project, downloading the NEDs, building the netsims — roughly four hours. nem now drives the whole chain: one <a href="https://containers.dev/" target="_blank" rel="noopener noreferrer">DevContainer</a> per project, built from the very image the CI runs on, then the NSO environment spun up inside it from the YAML — so a developer's environment and the pipeline's are the same thing. Under three minutes, once uv is installed and an SSH key is registered on GitLab.
+    </p>
+
+    <h3 id="testing">Testing</h3>
+    <p>
+      A test framework of my own, driven entirely through NSO's <a href="https://www.rfc-editor.org/rfc/rfc8040" target="_blank" rel="noopener noreferrer">RESTCONF</a> API. The <a href="https://developer.cisco.com/pyats/" target="_blank" rel="noopener noreferrer">PyATS</a> setup it replaced diffed an XML payload loaded over the CLI against an expected file, and could only reach services; mine describes each scenario as a sequence of typed tasks — free-form config or RESTCONF calls with any path and payload, plus built-ins for checkout, recompile and package reload — which makes NSO actions testable as well. Building it in-house is what made the migration free: a legacy mode still reads the old payload/expected pairs, so none of the existing tests had to be rewritten. One scenario is one YAML file and one GitLab CI job, run through parallel/matrix against an environment nem has just built.
+    </p>
+    <p>
+      The case I care about most is replaying a service deployed under version n-1 through a recompile and redeploy under version n. Configuration-level testing has its own value — it shows exactly which configuration changes — but it cannot catch this one: with a broken <a href="https://www.rfc-editor.org/rfc/rfc7950" target="_blank" rel="noopener noreferrer">YANG</a> model, new service instances still deploy perfectly well, while the instances already in production stop being redeployable. That is where you get stuck, and it strikes at what NSO exists for in the first place — managing the lifecycle of network services, not just pushing configuration once, which Ansible already does easily.
+    </p>
+
+    <h3 id="dashboard">Dashboard</h3>
+    <p>
+      A <a href="https://svelte.dev/" target="_blank" rel="noopener noreferrer">Svelte</a> dashboard that brings merge requests, their <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener noreferrer">Jira</a> tickets and staging releases onto a single page. Preparing a staging release used to take two people a full day, walking every NSO package to check the state of its merge requests and collect the right tags; the dashboard finds the latest tag of each package and commits it to the YAML of the infra-as-code repository, and the same work now takes under five minutes.
+    </p>
+    <p>
+      A "My tasks" view lists every merge request where you are author, assignee or reviewer next to its Jira ticket — matched through the ticket reference carried by the branch name or the MR title — and lets you change the ticket status without leaving the page, which turned the drift between a merge request and its ticket into something visible rather than something the product owner had to chase.
+    </p>
+
+    <h3 id="ztp">ZTP</h3>
+    <p>
+      An HTTP server built with <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener noreferrer">FastAPI</a> for the zero-touch provisioning of network equipment, running 10 to 20 devices on a typical working day. It replaced a Flask application that had grown too heavy to maintain and gave no per-device visibility: the rewrite is lighter and adds logs and tracking for each device, so the operations teams can see where any piece of equipment stands between day 0 and day 2 — on a web interface served by the same application, with no separate front end.
+    </p>
+
+    <h3 id="standards">Standards</h3>
+    <p>
+      I set the Python baseline every project on the team builds on: <a href="https://docs.astral.sh/uv/" target="_blank" rel="noopener noreferrer">uv</a> for dependency management, environments and packaging in place of hand-rolled venv and <a href="https://pip.pypa.io/" target="_blank" rel="noopener noreferrer">pip</a> + requirements.txt, with <a href="https://docs.astral.sh/ruff/" target="_blank" rel="noopener noreferrer">ruff</a> and <a href="https://www.mypy-lang.org/" target="_blank" rel="noopener noreferrer">mypy</a> for code quality.
     </p>
   </section>
 
@@ -93,10 +122,10 @@ const skills = [
         <strong>English</strong> — full professional proficiency
       </li>
       <li>
-        <strong>Vietnamese</strong> — conversational, spoken daily at home, but limited for professional work
+        <strong>Vietnamese</strong> — conversational, spoken daily at home
       </li>
       <li>
-        <strong>Japanese</strong> — basic, lived in Japan for a year, but rarely practiced since
+        <strong>Japanese</strong> — basic, lived in Japan for a year
       </li>
     </ul>
   </section>
